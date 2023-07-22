@@ -29,14 +29,15 @@ app.get('/todo', (req, res) => {
 app.post('/add', (req, res) => {
     const title = req.body.title;
     const price = req.body.price;
-    db.query('INSERT INTO goals (title, price) VALUE (?,?)', [title, price], (err, result) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.send(result)
-        }
-    })
-})
+
+    try {
+        db.query('INSERT INTO goals (title, price) VALUE (?,?)', [title, price]);
+        res.send('Goal added successfully');
+    } catch (err) {
+        console.log(err);
+        res.send('Error adding goal');
+    }
+});
 
 app.delete('/delete/:id', (req, res) => {
     const id = req.params.id;

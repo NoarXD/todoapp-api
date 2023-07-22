@@ -29,7 +29,7 @@ app.get('/todo', (req, res) => {
 app.post('/add', (req, res) => {
     const title = req.body.title;
     const price = req.body.price;
-    db.query('INSERT INTO goals (title, price) VALUE (?,?)', [title, price], (err, result) => {
+    db.query('INSERT INTO goals (title, price) VALUES (?,?)', [title, price], (err, result) => {
         if (err) {
             console.log(err)
         } else {

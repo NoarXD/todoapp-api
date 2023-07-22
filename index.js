@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
-const mysql = require("mysql");
+const mysql = require('mysql2')
 const cors = require("cors");
+require('dotenv').config()
 // const dateTime = new Date();
 // const date = dateTime.getDate();
 // const month = dateTime.getMonth();
@@ -14,14 +15,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-const db = mysql.createConnection({
-    host: "localhost",
-    port: "3306",
-    user: "root",
-    password: "root",
-    database: "todoapp"
-})
-
+const db = mysql.createConnection(process.env.DATABASE_URL)
 app.get('/todo', (req, res) => {
     db.query('SELECT * FROM goals', (err, result) => {
         if (err) {
@@ -55,6 +49,5 @@ app.delete('/delete/:id', (req, res) => {
     })
 })
 
-app.listen('3001', () => {
-    console.log("http://localhost:3001/todo")
+app.listen(process.env.PORT || 3001, () => {
 })

@@ -3,6 +3,7 @@ const app = express();
 const mysql = require('mysql2')
 const cors = require("cors");
 require('dotenv').config()
+const BodyParser = require('body-parser')
 // const dateTime = new Date();
 // const date = dateTime.getDate();
 // const month = dateTime.getMonth();
@@ -14,6 +15,7 @@ require('dotenv').config()
 
 app.use(cors());
 app.use(express.json());
+app.use(BodyParser.json())
 
 const db = mysql.createConnection(process.env.DATABASE_URL)
 app.get('/todo', (req, res) => {
